@@ -1,31 +1,58 @@
-      <style type="text/css" media="screen">
-        .gr_grid_container {
-          /* customize grid container div here. eg: width: 500px; */
-        }
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <style type="text/css">
+    /* 1. Remove all default backgrounds and scrollbars */
+    html, body {
+      background-color: transparent !important;
+      margin: 0;
+      padding: 0;
+      overflow-x: hidden; /* Prevent horizontal scrolling */
+    }
 
-        .gr_grid_book_container {
-          /* customize book cover container div here */
-          float: left;
-          width: 98px;
-          height: 160px;
-          padding: 0px 0px;
-          overflow: hidden;
-        }
-      </style>
-      <div id="gr_grid_widget_1773883795">
-        <!-- Show static html as a placeholder in case js is not enabled - javascript include will override this if things work -->
-          <div class="gr_grid_container">
-    <div class="gr_grid_book_container"><a title="The Metamorphosis" rel="nofollow" href="https://www.goodreads.com/book/show/17986414-the-metamorphosis"><img alt="The Metamorphosis" border="0" src="https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1395614944l/17986414._SX98_.jpg" /></a></div>
-    <div class="gr_grid_book_container"><a title="Dungeon Crawler Carl (Dungeon Crawler Carl, #1)" rel="nofollow" href="https://www.goodreads.com/book/show/56791389-dungeon-crawler-carl"><img alt="Dungeon Crawler Carl" border="0" src="https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1734203042l/56791389._SX98_.jpg" /></a></div>
-    <div class="gr_grid_book_container"><a title="Fahrenheit 451" rel="nofollow" href="https://www.goodreads.com/book/show/44588917-fahrenheit-451"><img alt="Fahrenheit 451" border="0" src="https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1696145554l/44588917._SX98_.jpg" /></a></div>
-    <div class="gr_grid_book_container"><a title="We" rel="nofollow" href="https://www.goodreads.com/book/show/56304450-we"><img alt="We" border="0" src="https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1615843983l/56304450._SX98_.jpg" /></a></div>
-    <div class="gr_grid_book_container"><a title="Galápagos" rel="nofollow" href="https://www.goodreads.com/book/show/9593.Gal_pagos"><img alt="Galápagos" border="0" src="https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1585146350l/9593._SX98_.jpg" /></a></div>
-    <div class="gr_grid_book_container"><a title="Death and the Penguin" rel="nofollow" href="https://www.goodreads.com/book/show/152893.Death_and_the_Penguin"><img alt="Death and the Penguin" border="0" src="https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1331042499l/152893._SX98_.jpg" /></a></div>
-    <div class="gr_grid_book_container"><a title="The Global Game: Writers on Soccer (Bison Original)" rel="nofollow" href="https://www.goodreads.com/book/show/4475529-the-global-game"><img alt="The Global Game: Writers on Soccer" border="0" src="https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1328821091l/4475529._SX98_.jpg" /></a></div>
-    <div class="gr_grid_book_container"><a title="James" rel="nofollow" href="https://www.goodreads.com/book/show/173754979-james"><img alt="James" border="0" src="https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1704107491l/173754979._SX98_.jpg" /></a></div>
-    <div class="gr_grid_book_container"><a title="Things Fall Apart (The African Trilogy, #1)" rel="nofollow" href="https://www.goodreads.com/book/show/42402467-things-fall-apart"><img alt="Things Fall Apart" border="0" src="https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1734912620l/42402467._SX98_.jpg" /></a></div>
-  <noscript><br/>Share <a rel="nofollow" href="/">book reviews</a> and ratings with Tin, and even join a <a rel="nofollow" href="/group">book club</a> on Goodreads.</noscript>
+    /* 2. Force the Goodreads widget to be transparent and full-height */
+    #gr_grid_widget_1773883795 {
+      background-color: transparent !important;
+      width: 100% !important;
+      height: auto !important;
+    }
+
+    /* 3. The Vertical Stack "Magic" */
+    .gr_grid_container {
+      display: flex !important;
+      flex-direction: column !important; /* Forces vertical layout */
+      align-items: center !important;    /* Centers the covers */
+      background: none !important;
+      height: auto !important;
+      border: none !important;
+    }
+
+    /* 4. Individual Book Spacing */
+    .gr_grid_book_container {
+      float: none !important; /* Overrides Goodreads' horizontal float */
+      width: auto !important;
+      height: auto !important; 
+      padding: 15px 0 !important; /* Adds space between books */
+      margin: 0 auto !important;
+      border: none !important;
+    }
+
+    /* 5. Clean up image borders */
+    img {
+      border-radius: 4px; /* Optional: gives books slightly rounded corners */
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1); /* Optional: adds a slight depth */
+    }
+  </style>
+</head>
+<body>
+
+  <div id="gr_grid_widget_1773883795">
+    <div class="gr_grid_container">
+      </div>
   </div>
 
-      </div>
-      <script src="https://www.goodreads.com/review/grid_widget/199668457.Random%20Favs%20Of%20Tin%20Read%20Since%202025?cover_size=medium&hide_link=true&hide_title=true&num_books=9&order=d&shelf=recent-favs&sort=random&widget_id=1773883795" type="text/javascript" charset="utf-8"></script>
+  <script src="https://www.goodreads.com/review/grid_widget/199668457.Random%20Favs%20Of%20Tin%20Read%20Since%202025?cover_size=medium&hide_link=true&hide_title=true&num_books=9&order=d&shelf=recent-favs&sort=random&widget_id=1773883795" type="text/javascript" charset="utf-8"></script>
+
+</body>
+</html>
