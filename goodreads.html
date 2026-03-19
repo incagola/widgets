@@ -2,7 +2,6 @@
 <html>
 <head>
   <style type="text/css">
-    /* 1. Set the background to your specific HEX: #F0EFED */
     html, body {
       background-color: #F0EFED !important; 
       margin: 0 !important;
@@ -15,7 +14,6 @@
       overflow: hidden !important;
     }
 
-    /* 2. Fixed 3x2 Grid (Centered) */
     .gr_grid_container {
       display: grid !important;
       grid-template-columns: repeat(3, 100px) !important; 
@@ -48,38 +46,50 @@
       width: 92px !important; 
       height: 145px !important;
       object-fit: cover !important;
-      box-shadow: 2px 2px 5px rgba(0,0,0,0.15); /* Subtle shadow for depth */
+      box-shadow: 2px 2px 5px rgba(0,0,0,0.15);
     }
   </style>
 </head>
 <body>
 
   <div id="gr_grid_widget_1773883795">
-    <div class="gr_grid_container">
+    <div class="gr_grid_container" id="widget-target">
       </div>
   </div>
 
-  <script src="https://www.goodreads.com/review/grid_widget/199668457.Random%20Favs%20Of%20Tin%20Read%20Since%202025?cover_size=medium&hide_link=true&hide_title=true&num_books=6&order=d&shelf=recent-favs&sort=random&widget_id=1773883795" type="text/javascript" charset="utf-8"></script>
-
   <script type="text/javascript">
-    window.onload = function() {
-      setTimeout(function() {
-        var links = document.getElementsByTagName('a');
+    // 1. FORCE RANDOMNESS (The Cache Buster)
+    // We append a random number to the URL so Goodreads thinks it's a new request every time.
+    var randomSeed = Math.floor(Math.random() * 1000000);
+    var grScript = document.createElement('script');
+    grScript.src = "https://www.goodreads.com/review/grid_widget/199668457.Random%20Favs%20Of%20Tin%20Read%20Since%202025?cover_size=medium&hide_link=true&hide_title=true&num_books=6&order=d&shelf=recent-favs&sort=random&widget_id=1773883795&cachebust=" + randomSeed;
+    grScript.type = "text/javascript";
+    grScript.charset = "utf-8";
+    document.body.appendChild(grScript);
+
+    // 2. AGGRESSIVE LINK OVERRIDE
+    // This runs every 500ms to catch the links the moment they appear
+    var linkFixer = setInterval(function() {
+      var links = document.getElementsByTagName('a');
+      if (links.length > 0) {
         for (var i = 0; i < links.length; i++) {
-          // 1. Force New Tab
-          links[i].setAttribute('target', '_blank');
-          links[i].setAttribute('rel', 'noopener noreferrer');
+          var href = links[i].getAttribute('href');
           
-          // 2. Clean URL: Removes the "/review/show/..." part to go straight to the book page
-          var currentUrl = links[i].getAttribute('href');
-          if (currentUrl.includes('/book/show/')) {
-             // If it already has the book link, we keep it but strip extra tracking
-             var bookId = currentUrl.split('/book/show/')[1].split('?')[0];
-             links[i].setAttribute('href', 'https://www.goodreads.com/book/show/' + bookId);
+          // If the link contains a book ID, rebuild it to the main book page
+          if (href && href.includes('/book/show/')) {
+            var parts = href.split('/book/show/');
+            var bookId = parts[1].split('-')[0].split('?')[0].split('.')[0]; 
+            links[i].href = "https://www.goodreads.com/book/show/" + bookId;
           }
+          
+          links[i].target = "_blank";
+          links[i].rel = "noopener noreferrer";
         }
-      }, 1200); 
-    };
+      }
+    }, 500);
+
+    // Stop looking for links after 10 seconds to save battery/CPU
+    setTimeout(function() { clearInterval(linkFixer); }, 10000);
   </script>
 
 </body>
