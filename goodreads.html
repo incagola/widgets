@@ -22,6 +22,7 @@
       width: 300px !important; 
       height: 320px !important; 
       background-color: #F0EFED !important;
+      cursor: pointer;
     }
 
     .gr_grid_book_container {
@@ -30,15 +31,9 @@
       height: 160px !important;
       margin: 0 !important;
       padding: 0 !important;
-      border: none !important;
       display: flex;
       justify-content: center;
       align-items: center;
-    }
-
-    #gr_grid_widget_1773883795 {
-      width: 300px !important;
-      background: none !important;
     }
 
     img {
@@ -47,49 +42,46 @@
       height: 145px !important;
       object-fit: cover !important;
       box-shadow: 2px 2px 5px rgba(0,0,0,0.15);
+      pointer-events: none; /* This allows the click to pass through to our interceptor */
     }
   </style>
 </head>
-<body>
+<body onclick="interceptClick(event)">
 
   <div id="gr_grid_widget_1773883795">
-    <div class="gr_grid_container" id="widget-target">
+    <div class="gr_grid_container" id="grid-main">
       </div>
   </div>
 
   <script type="text/javascript">
-    // 1. FORCE RANDOMNESS (The Cache Buster)
-    // We append a random number to the URL so Goodreads thinks it's a new request every time.
+    // 1. Force Randomness
     var randomSeed = Math.floor(Math.random() * 1000000);
     var grScript = document.createElement('script');
     grScript.src = "https://www.goodreads.com/review/grid_widget/199668457.Random%20Favs%20Of%20Tin%20Read%20Since%202025?cover_size=medium&hide_link=true&hide_title=true&num_books=6&order=d&shelf=recent-favs&sort=random&widget_id=1773883795&cachebust=" + randomSeed;
-    grScript.type = "text/javascript";
-    grScript.charset = "utf-8";
     document.body.appendChild(grScript);
 
-    // 2. AGGRESSIVE LINK OVERRIDE
-    // This runs every 500ms to catch the links the moment they appear
-    var linkFixer = setInterval(function() {
-      var links = document.getElementsByTagName('a');
-      if (links.length > 0) {
-        for (var i = 0; i < links.length; i++) {
-          var href = links[i].getAttribute('href');
-          
-          // If the link contains a book ID, rebuild it to the main book page
-          if (href && href.includes('/book/show/')) {
-            var parts = href.split('/book/show/');
-            var bookId = parts[1].split('-')[0].split('?')[0].split('.')[0]; 
-            links[i].href = "https://www.goodreads.com/book/show/" + bookId;
+    // 2. The Link Interceptor
+    function interceptClick(e) {
+      // Find the closest link or image that was clicked
+      var target = e.target;
+      var container = target.closest('.gr_grid_book_container');
+      
+      if (container) {
+        e.preventDefault();
+        e.stopPropagation();
+        
+        var link = container.querySelector('a');
+        if (link) {
+          var href = link.getAttribute('href');
+          // Extract the Book ID from the link
+          // Goodreads URLs look like: /book/show/12345-title
+          var match = href.match(/\/book\/show\/(\d+)/);
+          if (match && match[1]) {
+            window.open("https://www.goodreads.com/book/show/" + match[1], "_blank");
           }
-          
-          links[i].target = "_blank";
-          links[i].rel = "noopener noreferrer";
         }
       }
-    }, 500);
-
-    // Stop looking for links after 10 seconds to save battery/CPU
-    setTimeout(function() { clearInterval(linkFixer); }, 10000);
+    }
   </script>
 
 </body>
