@@ -2,9 +2,9 @@
 <html>
 <head>
   <style type="text/css">
-    /* 1. Set the background to Notion's Light Gray */
+    /* 1. Set the background to your specific HEX: #F0EFED */
     html, body {
-      background-color: #F7F7F7 !important; 
+      background-color: #F0EFED !important; 
       margin: 0 !important;
       padding: 0 !important;
       height: 100%;
@@ -23,7 +23,7 @@
       gap: 0 !important; 
       width: 300px !important; 
       height: 320px !important; 
-      background-color: #F7F7F7 !important;
+      background-color: #F0EFED !important;
     }
 
     .gr_grid_book_container {
@@ -45,10 +45,10 @@
 
     img {
       display: block !important;
-      width: 90px !important; 
+      width: 92px !important; 
       height: 145px !important;
       object-fit: cover !important;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      box-shadow: 2px 2px 5px rgba(0,0,0,0.15); /* Subtle shadow for depth */
     }
   </style>
 </head>
@@ -62,15 +62,23 @@
   <script src="https://www.goodreads.com/review/grid_widget/199668457.Random%20Favs%20Of%20Tin%20Read%20Since%202025?cover_size=medium&hide_link=true&hide_title=true&num_books=6&order=d&shelf=recent-favs&sort=random&widget_id=1773883795" type="text/javascript" charset="utf-8"></script>
 
   <script type="text/javascript">
-    /* This script waits for the books to load, then forces links to open in a NEW TAB */
     window.onload = function() {
       setTimeout(function() {
         var links = document.getElementsByTagName('a');
         for (var i = 0; i < links.length; i++) {
+          // 1. Force New Tab
           links[i].setAttribute('target', '_blank');
           links[i].setAttribute('rel', 'noopener noreferrer');
+          
+          // 2. Clean URL: Removes the "/review/show/..." part to go straight to the book page
+          var currentUrl = links[i].getAttribute('href');
+          if (currentUrl.includes('/book/show/')) {
+             // If it already has the book link, we keep it but strip extra tracking
+             var bookId = currentUrl.split('/book/show/')[1].split('?')[0];
+             links[i].setAttribute('href', 'https://www.goodreads.com/book/show/' + bookId);
+          }
         }
-      }, 1000); // Waits 1 second for the Goodreads script to finish
+      }, 1200); 
     };
   </script>
 
