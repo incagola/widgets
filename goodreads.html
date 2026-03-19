@@ -2,38 +2,47 @@
 <html>
 <head>
   <style type="text/css">
-    /* 1. Force Transparency on everything */
-    html, body, #gr_grid_widget_1773883795, .gr_grid_container {
-      background-color: transparent !important;
-      background: none !important;
+    /* 1. Set the background to Notion's Dark Gray */
+    html, body {
+      background-color: rgb(25, 25, 25) !important; /* Change to #ffffff for Light Mode */
       margin: 0 !important;
       padding: 0 !important;
-      overflow: hidden !important; /* Kills the scrollbar */
+      overflow: hidden !important;
+      display: flex;
+      justify-content: flex-start;
     }
 
-    /* 2. Create the tight 3x3 Grid */
+    /* 2. Create the tight 3-wide Grid */
     .gr_grid_container {
       display: grid !important;
-      grid-template-columns: repeat(3, 1fr) !important; /* 3 equal columns */
-      gap: 0 !important; /* Removes all space between books */
-      width: fit-content !important;
+      grid-template-columns: repeat(3, 98px) !important; /* 3 columns at exactly book width */
+      grid-template-rows: repeat(2, 160px) !important;   /* 2 rows at exactly book height */
+      gap: 0 !important; 
+      width: 294px !important; /* 98px * 3 */
+      height: 320px !important; /* 160px * 2 */
+      background-color: rgb(25, 25, 25) !important;
     }
 
-    /* 3. Reset the Goodreads individual book boxes */
+    /* 3. Reset individual book boxes */
     .gr_grid_book_container {
-      float: none !important; /* Important: stops them from stacking weirdly */
-      width: 98px !important;  /* Match Goodreads default cover width */
-      height: 160px !important; /* Match Goodreads default cover height */
+      float: none !important;
+      width: 98px !important;
+      height: 160px !important;
       margin: 0 !important;
       padding: 0 !important;
       border: none !important;
+      background-color: rgb(25, 25, 25) !important;
     }
 
-    /* 4. Make sure images fill their 1/3rd slot perfectly */
-    .gr_grid_book_container img {
+    #gr_grid_widget_1773883795 {
+      width: 294px !important;
+      background: none !important;
+    }
+
+    img {
       display: block !important;
-      width: 100% !important;
-      height: 100% !important;
+      width: 98px !important;
+      height: 160px !important;
       object-fit: cover !important;
     }
   </style>
@@ -45,7 +54,7 @@
       </div>
   </div>
 
-  <script src="https://www.goodreads.com/review/grid_widget/199668457.Random%20Favs%20Of%20Tin%20Read%20Since%202025?cover_size=medium&hide_link=true&hide_title=true&num_books=9&order=d&shelf=recent-favs&sort=random&widget_id=1773883795" type="text/javascript" charset="utf-8"></script>
+  <script src="https://www.goodreads.com/review/grid_widget/199668457.Random%20Favs%20Of%20Tin%20Read%20Since%202025?cover_size=medium&hide_link=true&hide_title=true&num_books=6&order=d&shelf=recent-favs&sort=random&widget_id=1773883795" type="text/javascript" charset="utf-8"></script>
 
 </body>
 </html>
