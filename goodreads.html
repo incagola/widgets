@@ -1,47 +1,40 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-  <meta charset="UTF-8">
   <style type="text/css">
-    /* 1. Remove all default backgrounds and scrollbars */
-    html, body {
+    /* 1. Force Transparency on everything */
+    html, body, #gr_grid_widget_1773883795, .gr_grid_container {
       background-color: transparent !important;
-      margin: 0;
-      padding: 0;
-      overflow-x: hidden; /* Prevent horizontal scrolling */
-    }
-
-    /* 2. Force the Goodreads widget to be transparent and full-height */
-    #gr_grid_widget_1773883795 {
-      background-color: transparent !important;
-      width: 100% !important;
-      height: auto !important;
-    }
-
-    /* 3. The Vertical Stack "Magic" */
-    .gr_grid_container {
-      display: flex !important;
-      flex-direction: column !important; /* Forces vertical layout */
-      align-items: center !important;    /* Centers the covers */
       background: none !important;
-      height: auto !important;
-      border: none !important;
+      margin: 0 !important;
+      padding: 0 !important;
+      overflow: hidden !important; /* Kills the scrollbar */
     }
 
-    /* 4. Individual Book Spacing */
+    /* 2. Create the tight 3x3 Grid */
+    .gr_grid_container {
+      display: grid !important;
+      grid-template-columns: repeat(3, 1fr) !important; /* 3 equal columns */
+      gap: 0 !important; /* Removes all space between books */
+      width: fit-content !important;
+    }
+
+    /* 3. Reset the Goodreads individual book boxes */
     .gr_grid_book_container {
-      float: none !important; /* Overrides Goodreads' horizontal float */
-      width: auto !important;
-      height: auto !important; 
-      padding: 15px 0 !important; /* Adds space between books */
-      margin: 0 auto !important;
+      float: none !important; /* Important: stops them from stacking weirdly */
+      width: 98px !important;  /* Match Goodreads default cover width */
+      height: 160px !important; /* Match Goodreads default cover height */
+      margin: 0 !important;
+      padding: 0 !important;
       border: none !important;
     }
 
-    /* 5. Clean up image borders */
-    img {
-      border-radius: 4px; /* Optional: gives books slightly rounded corners */
-      box-shadow: 0 4px 6px rgba(0,0,0,0.1); /* Optional: adds a slight depth */
+    /* 4. Make sure images fill their 1/3rd slot perfectly */
+    .gr_grid_book_container img {
+      display: block !important;
+      width: 100% !important;
+      height: 100% !important;
+      object-fit: cover !important;
     }
   </style>
 </head>
